@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Tuner - Cloud CI/CD Demo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-{{ theme }}">
+    <div class="background-glow"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="guitar-icon">🎸</span>
+                <div>
+                    <h1>Precision Guitar Tuner</h1>
+                    <p class="subtitle">Standard Tuning · E2 A2 D3 G3 B3 E4</p>
+                </div>
+            </div>
+            <div class="header-badges">
+                <span class="badge version-badge" id="appVersionBadge">v{{ version }}</span>
+                <span class="badge k8s-badge"><span class="status-dot"></span> Minikube K8s</span>
+                <span class="badge jenkins-badge">Jenkins CI/CD</span>
+            </div>
+        </header>
+
+        <!-- Main Tuner Deck -->
+        <main class="tuner-deck">
+            <!-- Central Display & Needle -->
+            <section class="tuner-core">
+                <div class="meter-box">
+                    <div class="meter-scale">
+                        <span class="mark flat">-50</span>
+                        <span class="mark flat">-25</span>
+                        <span class="mark center">IN TUNE</span>
+                        <span class="mark sharp">+25</span>
+                        <span class="mark sharp">+50</span>
+                    </div>
+                    <div class="needle-track">
+                        <div class="needle" id="tunerNeedle"></div>
+                    </div>
+                </div>
+
+                <div class="note-hero">
+                    <div class="note-name" id="selectedNote">E</div>
+                    <div class="octave-sub" id="selectedOctave">2</div>
+                </div>
+
+                <div class="frequency-readout">
+                    <span class="freq-value" id="currentFrequency">82.41</span>
+                    <span class="freq-unit">Hz</span>
+                </div>
+
+                <div class="status-indicator" id="playbackStatus">
+                    <span class="pulse-indicator"></span> Click a string to hear the pitch
+                </div>
+
+                <!-- Controls -->
+                <div class="audio-controls">
+                    <button class="btn btn-primary" id="toggleSoundBtn">
+                        <span class="btn-icon">🔊</span> <span id="toggleSoundText">Play Tone</span>
+                    </button>
+                    <button class="btn btn-secondary" id="stopSoundBtn">
+                        <span class="btn-icon">⏹</span> Stop
+                    </button>
+                    <div class="waveform-select-group">
+                        <label for="waveformSelect">Wave:</label>
+                        <select id="waveformSelect" class="select-input">
+                            <option value="triangle" selected>Triangle (Guitar)</option>
+                            <option value="sine">Sine (Pure)</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6 Guitar String Pegs -->
+            <section class="strings-selector-section">
+                <h2 class="section-title">Select String to Tune</h2>
+                <div class="strings-grid">
+                    {% for s in strings %}
+                    <button class="string-card {% if s.number == 6 %}active{% endif %}" 
+                            data-string="{{ s.number }}" 
+                            data-note="{{ s.note }}" 
+                            data-octave="{{ s.octave }}" 
+                            data-freq="{{ s.frequency }}"
+                            data-gauge="{{ s.gauge }}"
+                            id="stringBtn{{ s.number }}">
+                        <div class="string-meta">
+                            <span class="string-num">#{{ s.number }}</span>
+                            <span class="string-gauge">{{ s.gauge }}"</span>
+                        </div>
+                        <div class="string-note">{{ s.note }}<span>{{ s.octave }}</span></div>
+                        <div class="string-freq">{{ s.frequency }} Hz</div>
+                        <div class="string-wire gauge-{{ s.number }}"></div>
+                    </button>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!-- Virtual Fretboard / String Vibration Display -->
+            <section class="fretboard-display">
+                <div class="fret-wire nut"></div>
+                <div class="strings-vibration-container">
+                    {% for s in strings %}
+                    <div class="vibrating-line" id="vibeLine{{ s.number }}" style="--thickness: {{ 7 - s.number }}px">
+                        <span class="line-label">{{ s.note }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+
+        <!-- DevOps & CI/CD Pipeline Info Panel -->
+        <footer class="app-footer">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Assignment Details</h3>
+                    <p><strong>Course:</strong> Cloud Computing &amp; DevOps (CCA 2)</p>
+                    <p><strong>Target:</strong> Automated CI/CD Delivery Pipeline</p>
+                    <p><strong>Branch:</strong> <code>main</code> · Release <code>v{{ version }}</code></p>
+                </div>
+                <div class="footer-col">
+                    <h3>CI/CD Pipeline Stages</h3>
+                    <ul class="pipeline-steps-list">
+                        <li><span class="check">✔</span> GitHub Checkout</li>
+                        <li><span class="check">✔</span> Pytest Unit Tests</li>
+                        <li><span class="check">✔</span> Docker Container Build</li>
+                        <li><span class="check">✔</span> Docker Hub Registry Push</li>
+                        <li><span class="check">✔</span> Minikube K8s Deployment</li>
+                        <li><span class="check">✔</span> Liveness Verification</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Kubernetes Pod Health</h3>
+                    <p>Endpoint: <a href="/api/health" target="_blank" class="link-health"><code>/api/health</code> ↗</a></p>
+                    <p>Strings API: <a href="/api/strings" target="_blank" class="link-health"><code>/api/strings</code> ↗</a></p>
+                    <p>Deployment: <strong>guitar-tuner</strong> (2 Replicas)</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Cloud Computing &amp; DevOps · Continuous Delivery Demonstration</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/tuner.js') }}"></script>
+</body>
+</html>

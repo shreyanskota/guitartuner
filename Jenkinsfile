@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        // Change DOCKER_HUB_USER to your actual Docker Hub username
-        DOCKER_HUB_USER = credentials('DOCKER_HUB_USERNAME')
+        DOCKER_HUB_USER = 'shreyanskota'
         DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
         APP_NAME = 'guitar-tuner'
         IMAGE_NAME = "${DOCKER_HUB_USER}/${APP_NAME}"
@@ -68,7 +67,7 @@ pipeline {
                     kubectl apply -f k8s/service.yaml
 
                     # Update deployment image to the newly pushed version
-                    kubectl set image deployment/${APP_NAME} ${APP_NAME}=${IMAGE_NAME}:${IMAGE_TAG} --record
+                    kubectl set image deployment/${APP_NAME} ${APP_NAME}=${IMAGE_NAME}:${IMAGE_TAG}
                 """
             }
         }

@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: guitar-tuner
-        image: guitar-tuner:latest
+        image: shreyanskota/guitar-tuner:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 3000

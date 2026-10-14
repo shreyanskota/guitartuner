@@ -158,17 +158,13 @@ sudo chown -R jenkins:jenkins /var/lib/jenkins/.kube /var/lib/jenkins/.minikube
 From your local project folder:
 
 ```bash
-# 1. Initialize local repository
-git init -b main
+# 1. Initialize local repository (already done)
+git branch -M main
 
-# 2. Stage and commit all files
-git add .
-git commit -m "feat: Initial commit of guitar tuner application v1.0.0"
+# 2. Add remote GitHub repository
+git remote add origin https://github.com/shreyanskota/guitartuner.git
 
-# 3. Add remote GitHub repository (replace with your repo URL)
-git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/<YOUR_REPO_NAME>.git
-
-# 4. Push to GitHub
+# 3. Push to GitHub
 git push -u origin main
 ```
 

@@ -22,7 +22,7 @@ If you have never studied DevOps before, read these simple real-world analogies:
 ### 2. AWS EC2 (Elastic Compute Cloud)
 - **Real-World Analogy:** **Renting a computer in Amazon's high-tech warehouse** instead of running your home laptop 24/7.
 - **What it does:** We launched an Ubuntu 22.04 server in Mumbai (`ap-south-1`) with 2 vCPUs and 8 GB of RAM (`m7i-flex.large`). This computer stays on all the time and runs Jenkins, Docker, and Minikube.
-- **IP Address:** `3.111.33.220`
+- **IP Address:** `13.233.104.58`
 
 ### 3. AWS Security Group
 - **Real-World Analogy:** **The Security Guard at the entrance of the building** checking visitor badges.
@@ -100,7 +100,7 @@ If you have never studied DevOps before, read these simple real-world analogies:
 
 ### 18. Kubernetes Service & NodePort (`service.yaml`)
 - **Real-World Analogy:** **The Hotel Front Desk & Switchboard**.
-- **What it does:** Since Pods are temporary and get new internal IP addresses whenever they restart, customers can't connect to pods directly. A **Service** provides a single, permanent phone number. We used `type: NodePort` on port `30080` so anyone in the world can reach our pods by visiting `http://3.111.33.220:30080`.
+- **What it does:** Since Pods are temporary and get new internal IP addresses whenever they restart, customers can't connect to pods directly. A **Service** provides a single, permanent phone number. We used `type: NodePort` on port `30080` so anyone in the world can reach our pods by visiting `http://13.233.104.58:30080`.
 
 ### 19. Rolling Update (Zero-Downtime Deployment)
 - **Real-World Analogy:** **Changing the tires on a moving pit-stop car one wheel at a time**.
@@ -149,10 +149,10 @@ If you have never studied DevOps before, read these simple real-world analogies:
 
 Have these 4 tabs open:
 
-1. **Tab 1: Live Web App** ➔ [http://3.111.33.220:30080](http://3.111.33.220:30080)  
+1. **Tab 1: Live Web App** ➔ [http://13.233.104.58:30080](http://13.233.104.58:30080)  
    - Click strings (or press keys 1–6) to show the Web Audio tone generator sounding.
    - Show `/api/health` and `/api/version`.
-2. **Tab 2: Jenkins Pipeline** ➔ [http://3.111.33.220:8080/job/guitar-tuner-cicd/](http://3.111.33.220:8080/job/guitar-tuner-cicd/)  
+2. **Tab 2: Jenkins Pipeline** ➔ [http://13.233.104.58:8080/job/guitar-tuner-cicd/](http://13.233.104.58:8080/job/guitar-tuner-cicd/)  
    - Show the **Stage View** where all 6 stages are green (`SUCCESS`).
 3. **Tab 3: GitHub Repository** ➔ [https://github.com/shreyanskota/guitartuner](https://github.com/shreyanskota/guitartuner)  
    - Show project structure: `app.py`, `Dockerfile`, `Jenkinsfile`, and `k8s/` folder.
@@ -180,7 +180,7 @@ If the examiner asks: *"Show me a code change being deployed automatically"*:
    - Jenkins runs Pytest on the new code.
    - Docker builds and pushes a new image tagged with the new build number.
    - Kubernetes updates the pods without dropping traffic (Rolling Update).
-   - Refresh `http://3.111.33.220:30080` to show **v2.0.0** live!
+   - Refresh `http://13.233.104.58:30080` to show **v2.0.0** live!
 
 ---
 
@@ -225,7 +225,7 @@ Both probe our `/api/health` endpoint.
 
 SSH into EC2:
 ```bash
-ssh -i C:\Users\LENOVO\Downloads\r1.pem ubuntu@3.111.33.220
+ssh -i C:\Users\LENOVO\Downloads\r1.pem ubuntu@13.233.104.58
 ```
 
 Commands:

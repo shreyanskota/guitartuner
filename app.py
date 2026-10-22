@@ -2,7 +2,7 @@
 Guitar Tuner Web Application
 Cloud Computing & DevOps (CCA 2) Project
 A lightweight Flask web application serving an interactive guitar tuner
-with real-time Web Audio API reference pitch generation and health endpoints for Kubernetes.
+with real-time Web Audio API reference  generation and health endpoints for Kubernetes.
 """
 
 from flask import Flask, render_template, jsonify

@@ -18,7 +18,7 @@ APP_THEME = "classic-cyan"
 # String numbering: 1 is highest pitch (High E), 6 is lowest pitch (Low E)
 GUITAR_STRINGS = [
     {"number": 6, "note": "E", "octave": 2, "name": "6th (Low E)", "frequency": 82.41,  "gauge": "0.046"},
-    {"number": 5, "note": "F", "octave": 2, "name": "5th (A)",     "frequency": 110.00, "gauge": "0.036"},
+    {"number": 5, "note": "A", "octave": 2, "name": "5th (A)",     "frequency": 110.00, "gauge": "0.036"},
     {"number": 4, "note": "D", "octave": 3, "name": "4th (D)",     "frequency": 146.83, "gauge": "0.026"},
     {"number": 3, "note": "G", "octave": 3, "name": "3rd (G)",     "frequency": 196.00, "gauge": "0.017"},
     {"number": 2, "note": "B", "octave": 3, "name": "2nd (B)",     "frequency": 246.94, "gauge": "0.013"},
